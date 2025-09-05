@@ -98,8 +98,8 @@ async function authenticate(
     const sessionNonce = sessionsNonces.get(sessionContext.httpRequest.socket);
 
     if (
-      !sessionNonce ||
-      authentication.nonce !== sessionNonce ||
+      !authentication.nonce ||
+      (sessionNonce && (authentication.nonce !== sessionNonce)) ||
       (authentication.qop && (!authentication.cnonce || !authentication.nc))
     )
       return false;
