@@ -1,0 +1,30 @@
+#! /bin/sh
+# postinst script for genieacs
+
+set -e
+
+if [ -e "/usr/bin/genieacs-cwmp" ]
+then
+    rm /usr/bin/genieacs-cwmp
+fi
+if [ -e "/usr/bin/genieacs-ext" ]
+then
+    rm /usr/bin/genieacs-ext
+fi
+if [ -e "/usr/bin/genieacs-fs" ]
+then
+    rm /usr/bin/genieacs-fs
+fi
+if [ -e "/usr/bin/genieacs-nbi" ]
+then
+    rm /usr/bin/genieacs-nbi
+fi
+if [ -e "/usr/bin/genieacs-ui" ]
+then
+    rm /usr/bin/genieacs-ui
+fi
+#
+if [ -e "/var/log/genieacs" ]
+then
+    rm -rf /var/log/genieacs
+fi

@@ -1,0 +1,5 @@
+genieacs (1.2.13-20250908) unstable; urgency=medium
+
+  * Test digest authentication
+
+ -- coolshou <coolshou2060@gmail.com>  Mon, 08 Sep 2025 17:20:13 +0800

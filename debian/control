@@ -1,0 +1,16 @@
+Source: genieacs
+Section: network
+Priority: optional
+Maintainer: coolshou <coolshou2060@gmail.com>
+Build-Depends: debhelper-compat (= 13), mongodb-org (>=3.6), nodejs (>=18.13), npm (>=8.5)
+Standards-Version: 4.6.0
+Homepage: https://github.com/coolshou/genieacs
+#Vcs-Browser: https://salsa.debian.org/debian/genieacs
+#Vcs-Git: https://salsa.debian.org/debian/genieacs.git
+Rules-Requires-Root: no
+
+Package: genieacs
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: A high performance Auto Configuration Server (ACS) for remote management of TR-069 enabled devices.
+ a high performance Auto Configuration Server (ACS) for remote management of TR-069 enabled devices.

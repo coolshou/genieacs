@@ -1,0 +1,30 @@
+#! /bin/sh
+# postinst script for genieacs
+
+set -e
+
+ln -sf /opt/genieacs/bin/genieacs-cwmp /usr/bin/genieacs-cwmp
+ln -sf /opt/genieacs/bin/genieacs-ext /usr/bin/genieacs-ext
+ln -sf /opt/genieacs/bin/genieacs-fs /usr/bin/genieacs-fs
+ln -sf /opt/genieacs/bin/genieacs-nbi /usr/bin/genieacs-nbi
+ln -sf /opt/genieacs/bin/genieacs-ui /usr/bin/genieacs-ui
+
+#
+if  ! grep -q '^genieacs:' /etc/passwd; then
+    useradd --system --no-create-home --user-group genieacs
+fi
+#
+chown genieacs:genieacs /opt/genieacs/ext
+chown genieacs:genieacs /opt/genieacs/genieacs.env
+if [ ! -e "/var/log/genieacs" ]
+then
+    mkdir /var/log/genieacs
+fi
+if [ -e "/var/log/genieacs" ]
+then
+chown genieacs:genieacs /var/log/genieacs
+fi
+#
+if ! grep -q '^GENIEACS_UI_JWT_SECRET:' /opt/genieacs/genieacs.env; then
+    node -e "console.log(\"GENIEACS_UI_JWT_SECRET=\" + require('crypto').randomBytes(128).toString('hex'))" |sudo tee -a /opt/genieacs/genieacs.env
+fi

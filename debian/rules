@@ -1,0 +1,43 @@
+#!/usr/bin/make -f
+# See debhelper(7) (uncomment to enable)
+# output every command that modifies files on the build system.
+#export DH_VERBOSE = 1
+
+
+# see FEATURE AREAS in dpkg-buildflags(1)
+#export DEB_BUILD_MAINT_OPTIONS = hardening=+all
+
+# see ENVIRONMENT in dpkg-buildflags(1)
+# package maintainers to append CFLAGS
+#export DEB_CFLAGS_MAINT_APPEND  = -Wall -pedantic
+# package maintainers to append LDFLAGS
+#export DEB_LDFLAGS_MAINT_APPEND = -Wl,--as-needed
+
+
+%:
+	dh $@
+
+
+# dh_make generated override targets
+# This is example for Cmake (See https://bugs.debian.org/641051 )
+override_dh_auto_configure:
+	npm install
+
+override_dh_auto_build:
+	npm run build
+
+override_dh_installsystemd:
+	dh_installsystemd --name=genieacs-cwmp
+	dh_installsystemd --name=genieacs-fs
+	dh_installsystemd --name=genieacs-nbi
+	dh_installsystemd --name=genieacs-ui
+
+override_dh_auto_install:
+	mkdir -p debian/genieacs/opt/genieacs
+	cp -R dist/* debian/genieacs/opt/genieacs/
+	cp debian/genieacs.env debian/genieacs/opt/genieacs
+	mkdir -p debian/genieacs/opt/genieacs/ext
+	cp -R node_modules debian/genieacs/opt/genieacs/
+	#mkdir -p debian/genieacs/etc/systemd/system
+	#cp debian/genieacs-*.service debian/genieacs/etc/systemd/system
+	mkdir -p  debian/genieacs/var/log/genieacs
