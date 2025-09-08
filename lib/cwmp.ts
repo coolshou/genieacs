@@ -105,7 +105,7 @@ async function authenticate(
       return false;
 
     authentication["body"] = body;
-    sessionNonces.set(sessionContext.httpRequest.socket,authentication.nonce)
+    sessionsNonces.set(sessionContext.httpRequest.socket,authentication.nonce)
 
   }
 
