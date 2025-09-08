@@ -105,6 +105,8 @@ async function authenticate(
       return false;
 
     authentication["body"] = body;
+    sessionNonces.set(sessionContext.httpRequest.socket,authentication.nonce)
+
   }
 
   const res = await evaluateAsync(
